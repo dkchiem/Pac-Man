@@ -100,9 +100,9 @@ function render() {
   bigDots.draw();
 
   if (gameRunning) {
-    // ghost1.draw();
-    // ghost2.draw();
-    // ghost3.draw();
+    ghost1.draw();
+    ghost2.draw();
+    ghost3.draw();
     pacman.draw();
   } else {
     title.draw();
