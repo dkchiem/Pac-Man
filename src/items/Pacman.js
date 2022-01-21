@@ -66,6 +66,7 @@ export class Pacman {
     // Turning wall collision
     if (this.currentMovingDirection !== this.requestedMovingDirection) {
       if (Number.isInteger(this.x) && Number.isInteger(this.y)) {
+        console.log(this.x, this.y, this.requestedMovingDirection);
         if (!this.didCollide(this.x, this.y, this.requestedMovingDirection)) {
           this.currentMovingDirection = this.requestedMovingDirection;
         }
@@ -128,25 +129,29 @@ export class Pacman {
     }
 
     if (this.x >= this.map.mapData[0].length) this.x = 0;
-    if (this.x < 0) this.x = this.map.mapData[0].length;
+    if (this.x <= -1) this.x = this.map.mapData[0].length - 1;
     if (this.y >= this.map.mapData.length) this.y = 0;
-    if (this.y < 0) this.y = this.map.mapData.length;
+    if (this.y <= -1) this.y = this.map.mapData.length - 1;
   }
 
   didCollide(x, y, direction) {
     if (Number.isInteger(this.x) && Number.isInteger(this.y)) {
       switch (direction) {
         case MovingDirection.UP:
-          return this.map.mapData[y - 1][x] === 1;
+          const upValue = this.map.mapData[y - 1][x];
+          return upValue === 1 || upValue === 9;
 
         case MovingDirection.RIGHT:
-          return this.map.mapData[y][x + 1] === 1;
+          const rightValue = this.map.mapData[y][x + 1];
+          return rightValue === 1 || rightValue === 9;
 
         case MovingDirection.DOWN:
-          return this.map.mapData[y + 1][x] === 1;
+          const downValue = this.map.mapData[y + 1][x];
+          return downValue === 1 || downValue === 9;
 
         case MovingDirection.LEFT:
-          return this.map.mapData[y][x - 1] === 1;
+          const leftValue = this.map.mapData[y][x - 1];
+          return leftValue === 1 || leftValue === 9;
 
         default:
           return false;

@@ -189,16 +189,20 @@ export class Ghost {
     if (Number.isInteger(this.x) && Number.isInteger(this.y)) {
       switch (direction) {
         case MovingDirection.UP:
-          return this.map.mapData[y - 1][x] === 1;
+          const upValue = this.map.mapData[y - 1][x];
+          return upValue === 1 || upValue === 9;
 
         case MovingDirection.RIGHT:
-          return this.map.mapData[y][x + 1] === 1;
+          const rightValue = this.map.mapData[y][x + 1];
+          return rightValue === 1 || rightValue === 9;
 
         case MovingDirection.DOWN:
-          return this.map.mapData[y + 1][x] === 1;
+          const downValue = this.map.mapData[y + 1][x];
+          return downValue === 1 || downValue === 9;
 
         case MovingDirection.LEFT:
-          return this.map.mapData[y][x - 1] === 1;
+          const leftValue = this.map.mapData[y][x - 1];
+          return leftValue === 1 || leftValue === 9;
 
         default:
           return false;
