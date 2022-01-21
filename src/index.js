@@ -62,7 +62,7 @@ window.addEventListener('keydown', (e) => {
   }
 });
 
-const beginningSound = new Audio('../sounds/beginning.wav');
+const beginningSound = new Audio('/sounds/beginning.wav');
 beginningSound.volume = 0.6;
 beginningSound.play();
 
