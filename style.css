@@ -10,3 +10,32 @@ body {
   color: white;
   font-family: 'Press Start 2P';
 }
+
+#livebar {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+#livebar .live {
+  background-image: url(./images/pacman.png);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 50px;
+  width: 50px;
+  margin: 10px;
+}
+
+#replay {
+  display: none;
+  margin-top: 20px;
+  background-color: #77acf1;
+  cursor: pointer;
+  padding: 20px;
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+#replay:hover {
+  background-color: #5c8cdc;
+}

@@ -1,6 +1,6 @@
 import { tileSize } from '../constants.js';
 
-export class Dots {
+export class BigDots {
   constructor(map, coordinates) {
     this.map = map;
     this.coordinates = coordinates;
@@ -13,7 +13,7 @@ export class Dots {
       window.ctx.arc(
         coordinate[0] * tileSize + tileSize / 2,
         coordinate[1] * tileSize + tileSize / 2,
-        4,
+        10,
         0,
         Math.PI * 2,
         true,
@@ -26,11 +26,11 @@ export class Dots {
   }
 
   reset() {
-    this.coordinates = this.map.getItems(0);
+    this.coordinates = this.map.getItems(4);
   }
 
   destroy(x, y) {
-    this.map.mapData[y][x] = 0;
+    this.map.mapData[y][x] = 4;
     this.coordinates = this.coordinates.filter((coordinate) => {
       return !(coordinate[0] === x && coordinate[1] === y);
     });

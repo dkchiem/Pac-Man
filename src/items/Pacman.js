@@ -1,21 +1,15 @@
 import { tileSize } from '../constants.js';
-import { roundPrecision } from '../utils.js';
-import { Dots } from './Dots.js';
+import { roundPrecision, MovingDirection } from '../utils.js';
 
-let score = 0;
+import { BigDots } from './BigDots.js';
+import { Dots } from './Dots.js';
+import { Ghost } from './Ghost.js';
 
 export const FacingDirection = {
   UP: -Math.PI / 2,
   RIGHT: 0,
   DOWN: Math.PI / 2,
   LEFT: -Math.PI,
-};
-
-export const MovingDirection = {
-  UP: 'UP',
-  RIGHT: 'RIGHT',
-  DOWN: 'DOWN',
-  LEFT: 'LEFT',
 };
 
 export class Pacman {
@@ -28,6 +22,17 @@ export class Pacman {
     this.currentMovingDirection = MovingDirection.RIGHT;
     this.requestedMovingDirection = MovingDirection.RIGHT;
     this.time = 0;
+    this.chompping = false;
+    this.powered = false;
+    this.score = 0;
+    this.lives = 3;
+
+    setInterval(() => {
+      if (this.chompping) {
+        const chompSound = new Audio('../../sounds/chomp.mp3');
+        chompSound.play();
+      }
+    }, 250);
   }
 
   draw() {
@@ -35,7 +40,7 @@ export class Pacman {
 
     window.ctx.save();
     window.ctx.beginPath();
-    window.ctx.fillStyle = 'yellow';
+    window.ctx.fillStyle = '#FFEE00';
     window.ctx.arc(
       this.x * tileSize + tileSize / 2,
       this.y * tileSize + tileSize / 2,
@@ -69,12 +74,28 @@ export class Pacman {
 
     // Eat dots
     if (Number.isInteger(this.x) && Number.isInteger(this.y)) {
-      const dot = this.map.mapData[this.y][this.x];
-      if (dot instanceof Dots) {
-        dot.destroy(this.x, this.y);
-        score += 1;
-        document.querySelector('#score').innerText = `Score: ${score}`;
+      const tile = this.map.mapData[this.y][this.x];
+      if (tile instanceof Dots) {
+        tile.destroy(this.x, this.y);
+        this.score += 10;
+        this.chompping = true;
+      } else if (tile instanceof BigDots) {
+        const powerUpSound = new Audio('../../sounds/power-up.wav');
+        powerUpSound.volume = 0.6;
+        powerUpSound.play();
+        tile.destroy(this.x, this.y);
+        this.score += 50;
+        if (!this.powered) {
+          this.powered = true;
+          setTimeout(() => {
+            this.powered = false;
+          }, 8000);
+        }
+        this.chompping = false;
+      } else {
+        this.chompping = false;
       }
+      document.querySelector('#score').innerText = `Score: ${this.score}`;
     }
 
     // Collision with wall
@@ -131,5 +152,11 @@ export class Pacman {
           return false;
       }
     }
+  }
+
+  die() {
+    this.x = this.map.getItems(2)[0][0];
+    this.y = this.map.getItems(2)[0][1];
+    this.lives--;
   }
 }
