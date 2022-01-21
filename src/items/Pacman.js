@@ -29,7 +29,7 @@ export class Pacman {
 
     setInterval(() => {
       if (this.chompping) {
-        const chompSound = new Audio('../../sounds/chomp.mp3');
+        const chompSound = new Audio('/sounds/chomp.mp3');
         chompSound.play();
       }
     }, 250);
@@ -80,7 +80,7 @@ export class Pacman {
         this.score += 10;
         this.chompping = true;
       } else if (tile instanceof BigDots) {
-        const powerUpSound = new Audio('../../sounds/power-up.wav');
+        const powerUpSound = new Audio('/sounds/power-up.wav');
         powerUpSound.volume = 0.6;
         powerUpSound.play();
         tile.destroy(this.x, this.y);

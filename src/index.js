@@ -83,10 +83,6 @@ function start() {
 function render() {
   window.ctx.clearRect(0, 0, window.canvas.width, window.canvas.height);
 
-  // const live = document.createElement('img');
-  // live.src = '../images/heart.svg';
-  // document.querySelector('#live-bar').appendChild(live);
-
   const livebar = document.querySelector('#livebar');
   const liveHTML = '<div class="live"></div>';
   if (pacman.lives >= 0) {

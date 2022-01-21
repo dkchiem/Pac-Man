@@ -7,10 +7,10 @@ import {
 } from '../utils.js';
 
 const scaredImage = new Image();
-scaredImage.src = '../../images/ghosts/scared.png';
+scaredImage.src = '/images/ghosts/scared.png';
 
 const eyesImage = new Image();
-eyesImage.src = '../../images/ghosts/eyes.png';
+eyesImage.src = '/images/ghosts/eyes.png';
 
 export class Ghost {
   constructor(pacman, map, imageFile, coordinate, speed) {
@@ -23,7 +23,7 @@ export class Ghost {
     this.time = 0;
     this.dead = false;
     this.image = new Image();
-    this.image.src = `../../images/ghosts/${imageFile}`;
+    this.image.src = `/images/ghosts/${imageFile}`;
   }
 
   draw() {
@@ -54,7 +54,7 @@ export class Ghost {
       if (!this.dead) {
         if (this.pacman.powered) {
           this.collideWithPacman(this.pacman, () => {
-            const eatGhostSound = new Audio('../../sounds/eat-ghost.wav');
+            const eatGhostSound = new Audio('/sounds/eat-ghost.wav');
             eatGhostSound.volume = 0.6;
             eatGhostSound.play();
             this.pacman.score += 200;
@@ -65,7 +65,7 @@ export class Ghost {
           });
         } else {
           this.collideWithPacman(this.pacman, () => {
-            const deathSound = new Audio('../../sounds/death.wav');
+            const deathSound = new Audio('/sounds/death.wav');
             deathSound.volume = 0.6;
             deathSound.play();
             this.pacman.die();
