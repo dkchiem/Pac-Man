@@ -26,16 +26,52 @@ body {
   margin: 10px;
 }
 
-#replay {
-  display: none;
-  margin-top: 20px;
+.button {
   background-color: #77acf1;
   cursor: pointer;
   padding: 20px;
   border-radius: 10px;
   transition: 0.2s;
+  margin: 10px;
+  margin-top: 20px;
 }
 
-#replay:hover {
+.button:hover {
   background-color: #5c8cdc;
+}
+
+#maps-container {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+#map1-button {
+  background-image: url(/images/maps/map1.png);
+}
+
+#map2-button {
+  background-image: url(/images/maps/map2.png);
+}
+
+.map-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  height: 200px;
+  width: 200px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  transition: 0.3s;
+  margin: 20px;
+}
+
+.map-button:hover {
+  transform: scale(1.1);
 }

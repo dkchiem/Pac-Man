@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pac-Mac</title>
+    <script defer src="src/index.js" type="module"></script>
     <link rel="icon" type="image/png" href="images/pacman.png" />
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -15,23 +16,25 @@
     />
   </head>
   <body>
-    <h1>Pac-Man</h1>
-    <h3>Choisissez une carte</h3>
-    <div id="maps-container">
+    <h1 id="score">Score: 000</h1>
+    <div id="livebar"></div>
+    <canvas></canvas>
+    <div style="display: flex">
       <div
-        class="map-button"
-        id="map1-button"
-        onclick="window.location.href='play.html?map=map1'"
+        id="return"
+        style="display: none"
+        class="button"
+        onclick="window.location.href='index.html'"
       >
-        Carte 1
+        Retour au menu
       </div>
-
       <div
-        class="map-button"
-        id="map2-button"
-        onclick="window.location.href='play.html?map=map2'"
+        id="replay"
+        style="display: none"
+        class="button"
+        onclick="window.location.reload()"
       >
-        Carte 2
+        Rejouer
       </div>
     </div>
   </body>

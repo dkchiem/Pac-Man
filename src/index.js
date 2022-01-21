@@ -1,6 +1,6 @@
 import { MovingDirection } from './utils.js';
 import { tileSize } from './constants.js';
-import { map1 } from './map.js';
+import { map1, map2 } from './map.js';
 
 import { Dots } from './items/Dots.js';
 import { BigDots } from './items/BigDots.js';
@@ -11,16 +11,48 @@ import { Title } from './items/Title.js';
 window.canvas = document.querySelector('canvas');
 window.ctx = window.canvas.getContext('2d');
 
-const currentMap = map1;
+const selectedMap = new URLSearchParams(window.location.search).get('map');
+
+const maps = {
+  map1: map1,
+  map2: map2,
+};
+
+const currentMap = maps[selectedMap];
 let gameRunning = false;
 
 // Items
-const dots = new Dots(map1, map1.getItems(0));
-const bigDots = new BigDots(map1, map1.getItems(4));
-const pacman = new Pacman(map1.getItems(2)[0], 0.1, map1);
-const ghost1 = new Ghost(pacman, map1, 'cyan.png', map1.getItems(3)[0], 0.1);
-const ghost2 = new Ghost(pacman, map1, 'orange.png', map1.getItems(3)[2], 0.1);
-const ghost3 = new Ghost(pacman, map1, 'red.png', map1.getItems(3)[2], 0.1);
+const dots = new Dots(currentMap, currentMap.getItems(0));
+const bigDots = new BigDots(currentMap, currentMap.getItems(4));
+const pacman = new Pacman(currentMap.getItems(2)[0], 0.1, currentMap);
+const ghost1 = new Ghost(
+  pacman,
+  currentMap,
+  'red.png',
+  currentMap.getItems(3)[0],
+  0.1,
+);
+const ghost2 = new Ghost(
+  pacman,
+  currentMap,
+  'cyan.png',
+  currentMap.getItems(3)[1],
+  0.1,
+);
+const ghost3 = new Ghost(
+  pacman,
+  currentMap,
+  'orange.png',
+  currentMap.getItems(3)[2],
+  0.1,
+);
+const ghost4 = new Ghost(
+  pacman,
+  currentMap,
+  'pink.png',
+  currentMap.getItems(3)[3],
+  0.1,
+);
 const title = new Title('Pacman');
 
 window.canvas.width = currentMap.width;
@@ -90,12 +122,13 @@ function render() {
   }
 
   if (pacman.lives === 0) {
+    document.querySelector('#return').style.display = 'block';
     document.querySelector('#replay').style.display = 'block';
     title.title = 'Game Over';
     gameRunning = false;
   }
 
-  map1.draw();
+  currentMap.draw();
   dots.draw();
   bigDots.draw();
 
@@ -103,6 +136,7 @@ function render() {
     ghost1.draw();
     ghost2.draw();
     ghost3.draw();
+    ghost4.draw();
     pacman.draw();
   } else {
     title.draw();
